@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f5">
+  <meta name="description" content="A calm, simple workspace for your notes, useful links and daily tasks.">
+  <title>Digital Declutter — Your calm workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" data-view="dashboard" aria-label="Digital Declutter home">
+        <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 8.5h16M8 15.8h11M8 23h7" /><circle cx="23" cy="23" r="4.2"/></svg></span>
+        <span class="brand-copy"><strong>clearspace</strong><small>DIGITAL DECLUTTER</small></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span>Overview</button>
+        <button class="nav-item" data-view="notes"><span class="nav-icon">▤</span>My notes <span class="nav-count" id="note-count">0</span></button>
+        <button class="nav-item" data-view="links"><span class="nav-icon">↗</span>Useful links <span class="nav-count" id="link-count">0</span></button>
+        <button class="nav-item" data-view="tasks"><span class="nav-icon">✓</span>My tasks <span class="nav-count" id="task-count">0</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="focus-card">
+          <div class="focus-icon">✳</div>
+          <strong>A little more focus.</strong>
+          <p>Keep what matters. Clear the rest.</p>
+          <span class="focus-spark">✦</span>
+        </div>
+        <div class="profile">
+          <div class="avatar">Y</div><div class="profile-copy"><strong>Your workspace</strong><small>Personal space</small></div><span class="profile-menu">•••</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobile-menu" aria-label="Toggle menu">☰</button>
+        <div class="breadcrumb"><span>Workspace</span><span class="crumb-slash">/</span><strong id="breadcrumb-current">Overview</strong></div>
+        <div class="top-actions">
+          <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Switch theme">🌙 <span>Dark mode</span></button>
+          <div class="date-pill"><span class="status-dot"></span><span id="today-label">Your day, at a glance</span></div>
+          <button class="avatar avatar-small" aria-label="Your profile">Y</button>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="view-panel" id="dashboard-view">
+          <div class="welcome-row">
+            <div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR PERSONAL SPACE</div><h1>Make room for<br><span>what matters.</span></h1><p class="hero-subtitle">A clearer mind starts with a clearer space. Keep your notes, links and next steps together.</p></div>
+            <div class="hero-art" aria-hidden="true"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-sun"></div><div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div><div class="art-stem"></div><div class="art-dot dot-one"></div><div class="art-dot dot-two"></div></div>
+          </div>
+          <div class="quick-actions">
+            <button class="quick-action primary-action" data-new="task"><span class="qa-icon">＋</span><span><strong>Add a task</strong><small>Plan your next step</small></span><span class="qa-arrow">↗</span></button>
+            <button class="quick-action" data-new="note"><span class="qa-icon note-qa">▤</span><span><strong>Write a note</strong><small>Capture a thought</small></span><span class="qa-arrow">↗</span></button>
+            <button class="quick-action" data-new="link"><span class="qa-icon link-qa">↗</span><span><strong>Save a link</strong><small>Keep it within reach</small></span><span class="qa-arrow">↗</span></button>
+          </div>
+          <div class="section-heading"><div><h2>Your overview</h2><p>A small snapshot of your digital life.</p></div><span class="updated-label"><span class="tiny-dot"></span> Updates as you work</span></div>
+          <div class="stats-grid">
+            <article class="stat-card"><div class="stat-top"><span class="stat-icon lavender">▤</span><span class="stat-caption">CAPTURED THOUGHTS</span></div><div class="stat-number" id="stat-notes">0</div><div class="stat-bottom"><span class="stat-description">Notes in your space</span><span class="stat-mini lavender-mini">✳</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-icon peach">↗</span><span class="stat-caption">SAVED FOR LATER</span></div><div class="stat-number" id="stat-links">0</div><div class="stat-bottom"><span class="stat-description">Useful links collected</span><span class="stat-mini peach-mini">↗</span></div></article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-icon mint">✓</span><span class="stat-caption">TASKS COMPLETED</span></div><div class="stat-number" id="stat-completed">0<span class="stat-unit"> done</span></div><div class="stat-bottom"><span class="stat-description" id="task-progress-text">0 tasks to go</span><div class="progress-track"><span id="task-progress"></span></div></div></article>
+          </div>
+          <div class="dashboard-columns">
+            <section class="panel-card task-panel"><div class="panel-heading"><div><h3>Today’s focus</h3><p>One step at a time.</p></div><button class="text-button" data-view="tasks">View all <span>→</span></button></div><div id="dashboard-tasks" class="compact-list"></div><button class="add-inline" data-new="task"><span>＋</span> Add a task</button></section>
+            <section class="panel-card notes-panel"><div class="panel-heading"><div><h3>Recently captured</h3><p>Your thoughts, kept in one place.</p></div><button class="text-button" data-view="notes">View all <span>→</span></button></div><div id="dashboard-notes" class="recent-notes"></div><button class="add-inline" data-new="note"><span>＋</span> Write a note</button></section>
+          </div>
+          <div class="quote-strip"><span class="quote-mark">“</span><p>You don’t need to organise everything today. Just make the next thing easier.</p><span class="quote-label">A GENTLER WORKFLOW</span></div>
+        </section>
+
+        <section class="view-panel hidden" id="notes-view">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR THOUGHTS</div><h1>My notes<span class="heading-period">.</span></h1><p>Ideas, reminders and things worth remembering.</p></div><button class="button button-dark" data-new="note">＋ New note</button></div>
+          <div class="toolbar"><label class="search-box"><span>⌕</span><input id="notes-search" type="search" placeholder="Search your notes..." aria-label="Search notes"></label><select id="notes-filter" aria-label="Filter notes"><option value="all">All categories</option><option>Study</option><option>Ideas</option><option>Personal</option><option>Work</option></select></div>
+          <div id="notes-grid" class="notes-grid"></div>
+        </section>
+
+        <section class="view-panel hidden" id="links-view">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR COLLECTION</div><h1>Useful links<span class="heading-period">.</span></h1><p>Good resources deserve a place you can find again.</p></div><button class="button button-dark" data-new="link">＋ Save a link</button></div>
+          <div class="toolbar"><label class="search-box"><span>⌕</span><input id="links-search" type="search" placeholder="Search saved links..." aria-label="Search links"></label><select id="links-filter" aria-label="Filter links"><option value="all">All categories</option><option>Study</option><option>Work</option><option>Inspiration</option><option>Tools</option><option>Personal</option></select></div>
+          <div id="links-grid" class="links-grid"></div>
+        </section>
+
+        <section class="view-panel hidden" id="tasks-view">
+          <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-line"></span> YOUR NEXT STEPS</div><h1>My tasks<span class="heading-period">.</span></h1><p>Turn the things on your mind into manageable steps.</p></div><button class="button button-dark" data-new="task">＋ Add a task</button></div>
+          <div class="task-summary" id="task-summary"></div>
+          <div class="toolbar task-toolbar"><div class="task-tabs" id="task-tabs"><button class="selected" data-task-filter="all">All tasks</button><button data-task-filter="pending">To do</button><button data-task-filter="completed">Completed</button></div><label class="search-box"><span>⌕</span><input id="tasks-search" type="search" placeholder="Find a task..." aria-label="Search tasks"></label></div>
+          <div class="task-list-full" id="tasks-list"></div>
+        </section>
+        <footer class="footer"><span>✳ clearspace</span><span>A little less clutter. A little more clarity.</span></footer>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modal-backdrop" role="presentation">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header"><div><div class="eyebrow"><span class="eyebrow-line"></span> MAKE IT COUNT</div><h2 id="modal-title">Add something new</h2></div><button class="icon-button" id="modal-close" aria-label="Close dialog">×</button></div>
+      <form id="item-form">
+        <input type="hidden" id="item-id">
+        <input type="hidden" id="item-type">
+        <label class="field-label" for="item-title">Title <span>*</span></label><input class="form-input" id="item-title" maxlength="120" required placeholder="Give it a clear name">
+        <div id="note-fields" class="hidden"><label class="field-label" for="item-content">Your note</label><textarea class="form-input textarea" id="item-content" rows="5" maxlength="5000" placeholder="Start with a thought..."></textarea><label class="field-label" for="item-category">Category</label><select class="form-input" id="item-category"><option>Study</option><option>Ideas</option><option>Personal</option><option>Work</option></select></div>
+        <div id="link-fields" class="hidden"><label class="field-label" for="item-url">Website URL <span>*</span></label><input class="form-input" id="item-url" type="url" placeholder="https://example.com"><label class="field-label" for="link-category">Category</label><select class="form-input" id="link-category"><option>Study</option><option>Work</option><option>Inspiration</option><option>Tools</option><option>Personal</option></select><label class="field-label" for="item-description">Why save it? <span class="optional">(optional)</span></label><input class="form-input" id="item-description" maxlength="240" placeholder="A short reminder about this link"></div>
+        <div id="task-fields" class="hidden"><label class="field-label" for="item-due">Due date <span class="optional">(optional)</span></label><input class="form-input" id="item-due" type="date"><label class="field-label" for="task-priority">Priority</label><select class="form-input" id="task-priority"><option value="normal">Normal</option><option value="high">High</option><option value="low">Low</option></select></div>
+        <p class="form-error hidden" id="form-error" role="alert"></p>
+        <div class="modal-actions"><button type="button" class="button button-light" id="modal-cancel">Cancel</button><button type="submit" class="button button-dark" id="form-submit">Save item <span>→</span></button></div>
+      </form>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/script.js"></script>
+</body>
+</html>
